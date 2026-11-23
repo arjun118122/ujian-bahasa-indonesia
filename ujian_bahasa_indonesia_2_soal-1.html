@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ujian Bahasa Indonesia</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f3f5f9;margin:0;padding:20px;color:#172033}
+main{max-width:650px;margin:auto;background:white;padding:22px;border-radius:14px;box-shadow:0 4px 18px #0001}
+h1{font-size:24px;margin-top:0} .muted{color:#657085}
+.question{padding:16px 0;border-top:1px solid #e5e8ef}
+label{display:block;padding:8px 4px}
+input[type=text]{width:100%;box-sizing:border-box;padding:12px;border:1px solid #cbd2df;border-radius:8px}
+button{background:#2457d6;color:white;border:0;border-radius:9px;padding:12px 18px;font-size:16px;width:100%;margin-top:16px}
+#result{display:none;padding:14px;background:#eef6ff;border-radius:9px;margin-top:16px}
+</style>
+</head>
+<body>
+<main>
+<h1>Ujian Bahasa Indonesia</h1>
+<p class="muted">2 soal pilihan ganda</p>
+<p><strong>Nama peserta</strong></p>
+<input id="nama" type="text" placeholder="Masukkan nama">
+<form id="quiz">
+<section class="question">
+<strong>1. Apa yang dimaksud dengan ide pokok dalam sebuah paragraf?</strong>
+<label><input type="radio" name="q1" value="0"> A. Kalimat penutup paragraf</label>
+<label><input type="radio" name="q1" value="1"> B. Gagasan utama yang dibahas dalam paragraf</label>
+<label><input type="radio" name="q1" value="2"> C. Kata-kata sulit dalam paragraf</label>
+<label><input type="radio" name="q1" value="3"> D. Contoh dalam paragraf</label>
+</section>
+<section class="question">
+<strong>2. Manakah penulisan kata baku yang benar?</strong>
+<label><input type="radio" name="q2" value="0"> A. Apotik</label>
+<label><input type="radio" name="q2" value="1"> B. Ijin</label>
+<label><input type="radio" name="q2" value="2"> C. Aktivitas</label>
+<label><input type="radio" name="q2" value="3"> D. Resiko</label>
+</section>
+<button type="submit">Kumpulkan Jawaban</button>
+</form>
+<div id="result" aria-live="polite"></div>
+</main>
+<script>
+document.getElementById('quiz').addEventListener('submit',function(e){
+ e.preventDefault();
+ const nama=document.getElementById('nama').value.trim();
+ const a=document.querySelector('input[name="q1"]:checked');
+ const b=document.querySelector('input[name="q2"]:checked');
+ if(!nama){alert('Masukkan nama terlebih dahulu.');return;}
+ if(!a||!b){alert('Jawab semua soal terlebih dahulu.');return;}
+ const benar=(a.value==='1'?1:0)+(b.value==='2'?1:0);
+ const el=document.getElementById('result');
+ el.style.display='block';
+ el.innerHTML='<strong>Hasil ujian</strong><p>Nama: '+nama.replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]))+'</p><p>Jawaban benar: '+benar+' dari 2</p><h2>Nilai: '+(benar*50)+'/100</h2>';
+ this.querySelector('button').disabled=true;
+});
+</script>
+</body>
+</html>
